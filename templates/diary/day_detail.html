@@ -1,0 +1,30 @@
+{% extends 'diary/base.html' %}
+{% block content %}
+    <table class="table">
+        <tr>
+            <th>タイトル</th>
+            <td>{{ day.title }}</td>
+        </tr>
+        <tr>
+            <th>本文</th>
+            <td>{{ day.text | linebreaksbr}}</td>
+        </tr>
+        <tr>
+            <th>wordCloud</th>
+            <td><img id ="image_place" src = "" />  </td>
+            <script>
+                // img要素を取得する
+                let img = document.getElementById("image_place")
+                img.src = "../../../media/images/"+ {{day.pk}} +".png"
+              </script>
+
+        </tr>
+        <tr>
+            <th>日付</th>
+            <td>{{ day.date }}</td>
+        </tr>
+    </table>
+    <a href="{% url 'diary:update' day.pk %}"><button class="btn btn-primary">更新</button></a>
+    <a href="{% url 'diary:delete' day.pk %}"><button class="btn btn-danger">削除</button></a>
+
+{% endblock %}
