@@ -1,6 +1,15 @@
 {% extends 'diary/base.html' %}
 {% block content %}
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="{% static "/base.css" %}" rel="stylesheet"  >
+</head>
+
     <table class="table">
+
         <tr>
             <th>タイトル</th>
             <td>{{ day.title }}</td>

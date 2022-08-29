@@ -1,0 +1,99 @@
+{% extends 'diary/base.html' %}
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+{% block content %}
+{% load static %}
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="{% static "/base.css" %}" rel="stylesheet"  >
+<script>
+// CSRF対策
+const getCookie = (name) => {
+    if (document.cookie && document.cookie !== '') {
+      for (const cookie of document.cookie.split(';')) {
+        const [key, value] = cookie.trim().split('=')
+        if (key === name) {
+          return decodeURIComponent(value)
+        }
+      }
+    }
+  }
+  const csrftoken = getCookie('csrftoken')
+
+// 記事追加
+const form_fetch= document.getElementById("form_fetch")
+form_fetch.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const url = 'http://127.0.0.1:8000/diary/api/'
+    const post_title = document.getElementById('post_title')
+    const post_text = document.getElementById("text_form")
+    // URLのクエリパラメータを管理
+    const body = new URLSearchParams()
+    body.append('title', post_title.value)
+    body.append('text',post_text.value)
+    fetch(url, {
+      method: 'POST',
+      body: body,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+        'X-CSRFToken': csrftoken,
+      },
+    })
+      .then((response) => {
+        console.log('toriaezudekiteru')
+        // JSON形式に変換
+        return response.json()
+      })
+      .then((response) => {
+        console.log('toriaezudekiteru')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  })
+</script>
+
+</head>
+
+
+
+
+<form id = "form_fetch" action =""method="POST">
+  <table class="tabel">
+      <div> Title
+          <input type="text" id='post_title' maxlength="8" size="10">
+
+      </div>
+          <div>本文
+          <input type="text" id="text_form" required
+        maxlength="300" size="100">
+          </div>
+
+
+  </table>
+
+  <button type="submit" class="btn btn-primary">送信</button>
+  {% csrf_token %}
+</form>
+
+<div id="result">
+  <tr>
+    <th>wordCloud</th>
+    <!--<td><img id ="image_place" src = "" />  </td>
+
+    <td>{{image.image}} </td> -->
+    <td><img id ="image_place" src = "" />  </td>
+    <script>
+        // img要素を取得する
+        let img = document.getElementById("image_place")
+        img.src = "../../../media/images/spa.png"
+      </script>
+
+    <div class="ImgResult">
+    </div>
+</tr>
+</div>
+
+
+{% endblock %}

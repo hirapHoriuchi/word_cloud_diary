@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ja">
   <head>
+
     <title>日記アプリケーション</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -8,11 +9,14 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+     <link rel="stylesheet" href="../../../media/css/base.css" >
+
   </head>
-  <body>
+  <!-- <body> -->
 
     <div class="container">
       <nav class="nav">
+
         <a class="nav-link active" href="{% url 'diary:index' %}">一覧</a>
         <a class="nav-link" href="{% url 'diary:add' %}">追加</a>
       </nav>

@@ -2,12 +2,21 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import DayCreateForm
 from .models import Day
 from . import textToWordcloud as ttwc
-import pdb
+import oseti
 
 def index(request):
     """
     日記の一覧を表示
     """
+    text_datas = ''
+    datas = Day.objects.all()
+    #print(Day.objects.all())
+    for data in datas:
+        text_datas += data.text
+
+    ttwc.create_wordcloud_ja(10001,text_datas)
+
+
     context = {
         'day_list':Day.objects.all(),
     }
@@ -22,11 +31,16 @@ def add(request):
     """
     # 送信内容を元にフォームを作る。POSTじゃなければ空のフォームを作成。
     form = DayCreateForm(request.POST or None)
+    print(request.POST)
+    print(type(request.POST))
+
+    #print(request.POST)
 
     # method==POSTとは送信ボタンが押されたとき。form.is_validは入力内容に問題が無い場合Trueになる。
     if request.method == 'POST' and form.is_valid():
         #入力時にtextを取得しそのtextを画像に変換
         form.save()
+        #print(form)
         return redirect('diary:index')
 
     # 通常時のアクセスや入力内容に誤りがあれば、再度day_form.htmlを表示

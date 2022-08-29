@@ -9,4 +9,5 @@ urlpatterns = [
     path('update/<int:pk>/', views.update, name='update'), #更新ページ
     path('delete/<int:pk>', views.delete, name='delete'), #削除ページ
     path('detail/<int:pk>', views.detail, name='detail'), #詳細ページ
+
 ]

@@ -1,0 +1,10 @@
+@media screen and (min-width: 320px) {
+  img {
+    width: 50% ;
+    }
+
+
+  .nav{
+    text-align: center;
+  }
+ }
